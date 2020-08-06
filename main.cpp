@@ -7,7 +7,7 @@ using namespace std;
 
 int main()
 {
-    srand(time(0));
+    //srand(time(0));
 
     BinaryTree tree;
 
@@ -18,7 +18,17 @@ int main()
         printf("Added: %d\n", tmp);
     }
 
-    cout << endl << tree;
+    cout << endl << tree << endl;
+
+    const auto tmp = tree.serialize();
+
+    for (int i = 0; i < 11; ++i)
+        cout << tmp[i] << ' ';
+    cout << endl;
+
+    BinaryTree deser_tree = BinaryTree(tmp.get(), tree.get_size() + 1);
+
+    cout << "Deserialized tree:\n" << deser_tree << endl;
 
     system("pause");
     return 0;
