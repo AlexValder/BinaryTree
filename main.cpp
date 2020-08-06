@@ -10,6 +10,7 @@ int main()
     srand(time(0));
 
     int tree_size = rand() % 20 + 5;
+    const char* path = "tree";
 
     BinaryTree tree;
 
@@ -22,15 +23,12 @@ int main()
 
     cout << endl << tree << endl;
 
-    const auto tmp = tree.serialize();
+    BinaryTree::write(tree, path);
 
-    for (int i = 0; i < tree_size + 1; ++i)
-        cout << tmp[i] << ' ';
-    cout << endl;
+    BinaryTree new_tree;
+    BinaryTree::read(new_tree, path);
 
-    tree.deserialize(tmp.get(), tree_size + 1);
-
-    cout << "Deserialized tree:\n" << tree << endl;
+    cout << "Recovered tree:\n" << new_tree << endl;
 
     system("pause");
     return 0;

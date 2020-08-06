@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <fstream>
 
 class BinaryTree
 {
@@ -34,7 +35,7 @@ public:
 
     friend std::ostream& operator<<(std::ostream& os, BinaryTree& tree)
     {
-        print_branch(os, tree.root, tree.size / 2);
+        print_branch(os, tree.root, tree.size);
         return os;
     }
 
@@ -42,4 +43,7 @@ public:
 
     std::unique_ptr<int[]> serialize() const;
     void deserialize(int* input, size_t n);
+
+    static void write(const BinaryTree& tree, const char* path);
+    static void read(BinaryTree& tree, const char* path);
 };

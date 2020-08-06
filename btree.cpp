@@ -100,3 +100,40 @@ void BinaryTree::deserialize(int* input, size_t n)
     for (size_t i = 2; i < n; ++i)
         insert(input[i]);
 }
+
+void BinaryTree::write(const BinaryTree& tree, const char* path)
+{
+    std::ofstream file;
+    file.open(path, std::ios::binary);
+    if (!file.is_open())
+        throw std::exception("Failed to open the file.");
+    
+    // Writing data to file.
+
+    const auto data = tree.serialize();
+    for (size_t i = 0; i < tree.size + 1; ++i)
+        file.write((char*)&data[i], sizeof(int));
+    file.close();
+}
+
+void BinaryTree::read(BinaryTree& tree, const char* path)
+{
+    std::ifstream file;
+    file.open(path, std::ios::binary);
+    if (!file.is_open())
+        throw std::exception("Failed to open the file.");
+
+    // Recovering data from the file.
+
+    size_t size = 0;
+    file.read((char*)&size, sizeof(int));
+
+    auto data = std::make_unique<int[]>(size);
+    file.read((char*)data.get(), sizeof(int) * size);
+    file.close();
+
+    // Creating the tree with this data.
+
+    for (size_t i = 0; i < size; ++i)
+        tree.insert(data[i]);
+}
