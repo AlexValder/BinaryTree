@@ -41,4 +41,5 @@ public:
     size_t get_size() const noexcept { return size; }
 
     std::unique_ptr<int[]> serialize() const;
+    void deserialize(int* input, size_t n);
 };

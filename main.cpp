@@ -7,11 +7,13 @@ using namespace std;
 
 int main()
 {
-    //srand(time(0));
+    srand(time(0));
+
+    int tree_size = rand() % 20 + 5;
 
     BinaryTree tree;
 
-    for (int i = 0; i < 10; ++i)
+    for (int i = 0; i < tree_size; ++i)
     {
         auto tmp = rand() % 20;
         tree.insert(tmp);
@@ -22,13 +24,13 @@ int main()
 
     const auto tmp = tree.serialize();
 
-    for (int i = 0; i < 11; ++i)
+    for (int i = 0; i < tree_size + 1; ++i)
         cout << tmp[i] << ' ';
     cout << endl;
 
-    BinaryTree deser_tree = BinaryTree(tmp.get(), tree.get_size() + 1);
+    tree.deserialize(tmp.get(), tree_size + 1);
 
-    cout << "Deserialized tree:\n" << deser_tree << endl;
+    cout << "Deserialized tree:\n" << tree << endl;
 
     system("pause");
     return 0;
